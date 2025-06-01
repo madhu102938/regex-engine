@@ -9,7 +9,7 @@ import (
 
 func main() {
 	regexExpression := "a*(b|c)+d*"
-	stringToMatch := "ad"
+	stringToMatch := "acd"
 
 	nfa, adj := regex.BuildNFA(utils.AddConcatenationAndConvertToPostfix(regexExpression))
 

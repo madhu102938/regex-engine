@@ -5,13 +5,13 @@ import (
 )
 
 var precedence = map[rune]int{
-	'(': 1,
-	')': 1,
-	'*': 4,
-	'+': 4,
-	'?': 4,
-	'.': 3,
-	'|': 2,
+	'(':              1,
+	')':              1,
+	'*':              4,
+	'+':              4,
+	'?':              4,
+	CONCAT_CHARACTER: 3,
+	'|':              2,
 }
 
 func pushToPostfix(postfix string, newCharacter rune) string {

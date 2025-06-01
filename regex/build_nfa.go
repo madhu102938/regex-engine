@@ -59,7 +59,7 @@ func BuildNFA(expression string) (*NFA, map[int][]Edge) {
 				adj[nfa_old.End] = append(adj[nfa_old.End], Edge{To: new_end, Char: Epsilon})
 				nfa := &NFA{Start: new_start, End: new_end}
 				s.Push(nfa)
-			case '.':
+			case utils.CONCAT_CHARACTER:
 				nfa_top := s.Pop().(*NFA)
 				nfa_bottom := s.Pop().(*NFA)
 				adj[nfa_bottom.End] = append(adj[nfa_bottom.End], Edge{To: nfa_top.Start, Char: Epsilon})

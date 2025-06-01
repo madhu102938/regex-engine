@@ -22,7 +22,6 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 	q.Add(element{stateId: start, indexToMatch: 0})
 	vis := make(map[element]bool)
 
-
 	for q.Length() != 0 {
 		curr_element := q.Remove()
 		vis[curr_element] = true
@@ -33,7 +32,7 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 
 		for _, nextEdge := range adj[curr_element.stateId] {
 			nextStateId := nextEdge.To
-			nextIndexToMatch := -1 
+			nextIndexToMatch := -1
 			if nextEdge.Char == Epsilon {
 				nextIndexToMatch = curr_element.indexToMatch
 			} else {
