@@ -8,8 +8,8 @@ func AddConcatenationToExpression(expression string) string {
 	}
 
 	for i := 1; i < len(runesExpression); i++ {
-		if !isOperator(runesExpression[i-1]) || runesExpression[i-1] == ')' || precedence[runesExpression[i-1]] > precedence['.'] {
-			if !isOperator(runesExpression[i]) || runesExpression[i] == '(' {
+		if !IsOperator(runesExpression[i-1]) || runesExpression[i-1] == ')' || precedence[runesExpression[i-1]] > precedence['.'] {
+			if !IsOperator(runesExpression[i]) || runesExpression[i] == '(' {
 				runesExpression = append(runesExpression[:i+1], runesExpression[i:]...)
 				runesExpression[i] = '.'
 			}

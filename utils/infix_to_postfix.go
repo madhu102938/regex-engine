@@ -5,20 +5,20 @@ import (
 )
 
 var precedence = map[rune]int{
-	'(' : 1,
-	')' : 1,
-	'*' : 4,
-	'+' : 4,
-	'?' : 4,
-	'.' : 3,
-	'|' : 2,
+	'(': 1,
+	')': 1,
+	'*': 4,
+	'+': 4,
+	'?': 4,
+	'.': 3,
+	'|': 2,
 }
 
 func pushToPostfix(postfix string, newCharacter rune) string {
 	return postfix + string(newCharacter)
 }
 
-func isOperator(character rune) bool {
+func IsOperator(character rune) bool {
 	_, ok := precedence[character]
 	return ok
 }
@@ -28,7 +28,7 @@ func InfixToPostfix(infix string) string {
 	postfix := ""
 
 	for _, character := range infix {
-		if !isOperator(character) {
+		if !IsOperator(character) {
 			postfix = pushToPostfix(postfix, character)
 		} else if character == '(' || character == ')' {
 			if character == '(' {
