@@ -8,12 +8,12 @@ import (
 )
 
 func main() {
-	regexExpression := "a*(b|c)+d*"
+	regexExpression := "a.(b|c)+d*"
 	stringToMatch := "acd"
 
 	nfa, adj := regex.BuildNFA(utils.AddConcatenationAndConvertToPostfix(regexExpression))
 
 	fmt.Println("regex expression : ", regexExpression)
 	fmt.Println("string to be matched : ", stringToMatch)
-	fmt.Println("Match: ",regex.MatchString(adj, nfa, stringToMatch))
+	fmt.Println("Match: ", regex.MatchString(adj, nfa, stringToMatch))
 }

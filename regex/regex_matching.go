@@ -11,6 +11,16 @@ type element struct {
 	indexToMatch int
 }
 
+func matchRune(regexRune rune, stringRune rune) bool {
+	if regexRune == stringRune {
+		return true
+	} else if regexRune == '.' {
+		return true
+	} else {
+		return false
+	}
+}
+
 func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 	start := nfa.Start
 	n := utf8.RuneCountInString(stringToMatch)
@@ -36,7 +46,7 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 			if nextEdge.Char == Epsilon {
 				nextIndexToMatch = curr_element.indexToMatch
 			} else {
-				if curr_element.indexToMatch != n && nextEdge.Char == stringToMatchSlice[curr_element.indexToMatch] {
+				if curr_element.indexToMatch != n && matchRune(nextEdge.Char, stringToMatchSlice[curr_element.indexToMatch]) {
 					nextIndexToMatch = curr_element.indexToMatch + 1
 				}
 			}
