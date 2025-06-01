@@ -20,14 +20,14 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 	}
 	q := queue.New[element]()
 	q.Add(element{stateId: start, indexToMatch: 0})
-	vis := make(map[element]bool,0)
+	vis := make(map[element]bool)
 
 
 	for q.Length() != 0 {
 		curr_element := q.Remove()
 		vis[curr_element] = true
 
-		if curr_element.indexToMatch == n {
+		if curr_element.indexToMatch == n && curr_element.stateId == nfa.End {
 			return true
 		}
 
@@ -37,7 +37,7 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 			if nextEdge.Char == Epsilon {
 				nextIndexToMatch = curr_element.indexToMatch
 			} else {
-				if nextEdge.Char == stringToMatchSlice[curr_element.indexToMatch] {
+				if curr_element.indexToMatch != n && nextEdge.Char == stringToMatchSlice[curr_element.indexToMatch] {
 					nextIndexToMatch = curr_element.indexToMatch + 1
 				}
 			}
