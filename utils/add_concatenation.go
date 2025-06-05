@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"fmt"
-
 	"github.com/madhu102938/regex-engine/constants"
 	"github.com/madhu102938/regex-engine/token"
 )
@@ -47,7 +45,6 @@ func AddConcatenationToExpression(expression string) []token.RegexToken {
 			}
 		}
 	}
-	fmt.Println(tokenSlice)
 	return tokenSlice
 }
 

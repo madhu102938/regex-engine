@@ -23,7 +23,7 @@ func InfixToPostfix(infix []token.RegexToken) []token.RegexToken {
 			if regexToken.Type == token.BracketStart {
 				s.Push(regexToken)
 			} else {
-				for (s.Len() > 0) && (s.Peek().(rune) != '(') {
+				for (s.Len() > 0) && (s.Peek().(token.RegexToken).Type != token.BracketEnd) {
 					postfix = append(postfix, s.Pop().(token.RegexToken))
 				}
 				s.Pop()

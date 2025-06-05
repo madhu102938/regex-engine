@@ -8,9 +8,9 @@ const (
 	Plus rune = '+'
 	Star rune = '*'
 	QuestionMark rune = '?'
-	BracketStart rune = ')'
+	BracketStart rune = '('
 	Or rune = '|'
-	BracketEnd rune = '('
+	BracketEnd rune = ')'
 	Dot rune = '.'
 	BackSlash rune = '\\'
 )
