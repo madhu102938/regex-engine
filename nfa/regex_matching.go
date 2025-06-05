@@ -1,24 +1,15 @@
-package regex
+package nfa
 
 import (
 	"unicode/utf8"
 
 	"github.com/eapache/queue/v2"
+	"github.com/madhu102938/regex-engine/token"
 )
 
 type element struct {
 	stateId      int
 	indexToMatch int
-}
-
-func matchRune(regexRune rune, stringRune rune) bool {
-	if regexRune == stringRune {
-		return true
-	} else if regexRune == '.' {
-		return true
-	} else {
-		return false
-	}
 }
 
 func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
@@ -43,10 +34,10 @@ func MatchString(adj map[int][]Edge, nfa *NFA, stringToMatch string) bool {
 		for _, nextEdge := range adj[curr_element.stateId] {
 			nextStateId := nextEdge.To
 			nextIndexToMatch := -1
-			if nextEdge.Char == Epsilon {
+			if nextEdge.RegexToken.Type == token.Epsilon {
 				nextIndexToMatch = curr_element.indexToMatch
 			} else {
-				if curr_element.indexToMatch != n && matchRune(nextEdge.Char, stringToMatchSlice[curr_element.indexToMatch]) {
+				if curr_element.indexToMatch != n && nextEdge.RegexToken.Match(stringToMatchSlice[curr_element.indexToMatch]) {
 					nextIndexToMatch = curr_element.indexToMatch + 1
 				}
 			}

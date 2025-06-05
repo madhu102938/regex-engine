@@ -2,53 +2,42 @@ package utils
 
 import (
 	"github.com/golang-collections/collections/stack"
+
+	"github.com/madhu102938/regex-engine/constants"
+	"github.com/madhu102938/regex-engine/token"
 )
 
-var precedence = map[rune]int{
-	'(':              1,
-	')':              1,
-	'*':              4,
-	'+':              4,
-	'?':              4,
-	CONCAT_CHARACTER: 3,
-	'|':              2,
-}
-
-func pushToPostfix(postfix string, newCharacter rune) string {
-	return postfix + string(newCharacter)
-}
-
-func IsOperator(character rune) bool {
-	_, ok := precedence[character]
+func IsOperator(tokenType token.RegexTokenType) bool {
+	_, ok := constants.Precedence[tokenType]
 	return ok
 }
 
-func InfixToPostfix(infix string) string {
+func InfixToPostfix(infix []token.RegexToken) []token.RegexToken {
 	s := stack.New()
-	postfix := ""
+	postfix := make([]token.RegexToken, 0, len(infix))
 
-	for _, character := range infix {
-		if !IsOperator(character) {
-			postfix = pushToPostfix(postfix, character)
-		} else if character == '(' || character == ')' {
-			if character == '(' {
-				s.Push(character)
+	for _, regexToken := range infix {
+		if !IsOperator(regexToken.Type) {
+			postfix = append(postfix, regexToken)
+		} else if regexToken.Type == token.BracketStart || regexToken.Type == token.BracketEnd {
+			if regexToken.Type == token.BracketStart {
+				s.Push(regexToken)
 			} else {
 				for (s.Len() > 0) && (s.Peek().(rune) != '(') {
-					postfix = pushToPostfix(postfix, s.Pop().(rune))
+					postfix = append(postfix, s.Pop().(token.RegexToken))
 				}
 				s.Pop()
 			}
 		} else {
-			for (s.Len() > 0) && (precedence[s.Peek().(rune)] >= precedence[character]) {
-				postfix = pushToPostfix(postfix, s.Pop().(rune))
+			for (s.Len() > 0) && (constants.Precedence[s.Peek().(token.RegexToken).Type] >= constants.Precedence[regexToken.Type]) {
+				postfix = append(postfix, s.Pop().(token.RegexToken))
 			}
-			s.Push(character)
+			s.Push(regexToken)
 		}
 	}
 
 	for s.Len() > 0 {
-		postfix = pushToPostfix(postfix, s.Pop().(rune))
+		postfix = append(postfix, s.Pop().(token.RegexToken))
 	}
 
 	return postfix
