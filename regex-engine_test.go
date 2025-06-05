@@ -28,6 +28,7 @@ func TestMatchRegex_HappyCases(t *testing.T) {
 		{"a*(b|c)+d*", "abcd"},
 		{"a*(b|c)+d*", "acbd"},
 		{"a*bc*d*", "abccd"},
+		{"ε?ε?εε", "εε"},
 	}
 
 	for _, tc := range tests {
@@ -50,6 +51,7 @@ func TestMatchRegex_SadCases(t *testing.T) {
 		{"(a|b)+", "cc"},
 		{"a*(b|c)+d*", "add"},
 		{"a*bc*d*", "acccd"},
+		{"εε", "ε"},
 	}
 
 	for _, tc := range tests {

@@ -20,8 +20,6 @@ type Edge struct {
 	RegexToken token.RegexToken
 }
 
-const Epsilon rune = 'ε'
-
 func BuildNFA(expression []token.RegexToken) (*NFA, map[int][]Edge) {
 	start, end := 0, 1
 	s := stack.New()
