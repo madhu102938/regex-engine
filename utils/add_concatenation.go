@@ -8,12 +8,11 @@ import (
 )
 
 func convertToToken(expression string) ([]token.RegexToken, error) {
-	n := 0
 	expressionSlice := make([]rune, 0, len(expression))
 	for _, char := range expression {
 		expressionSlice = append(expressionSlice, char)
-		n++
 	}
+	n := len(expressionSlice)
 	tokenSlice := make([]token.RegexToken, 0, n)
 
 	for i := 0; i < n; i++ {
